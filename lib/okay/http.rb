@@ -42,7 +42,7 @@ class Okay
     # @param url [String] URL for the request.
     # @param parameters [Hash, nil] Request parameters (for the query string).
     # @param body [String, nil] Request body.
-    # @param redirect_limit [Numeric] The maximum number of redirects allowed
+    # @param redirect_limit [Numeric] The maximum number of redirects allowed.
     def self.send_request(http_method, url, parameters, body, redirect_limit = DEFAULT_REDIRECT_LIMIT)
       if redirect_limit <= 0
         raise RedirectLimitError, "request exceeded redirect limit"
