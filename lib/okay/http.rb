@@ -24,8 +24,6 @@ class Okay
       send_request(METHODS[:post], url, parameters)
     end
 
-    private
-
     def self.send_request(http_method, url, parameters, limit = DEFAULT_REDIRECT_LIMIT)
       if limit <= 0
         raise RedirectLimitError, "request exceeded redirect limit"
@@ -51,5 +49,6 @@ class Okay
         end
       end
     end
+    private_class_method :send_request
   end
 end
