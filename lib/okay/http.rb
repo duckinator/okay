@@ -3,7 +3,6 @@ require 'net/https'
 
 class Okay
   module HTTP
-    MethodError = Class.new(ArgumentError)
     RedirectLimitError = Class.new(StandardError)
 
     DEFAULT_REDIRECT_LIMIT = 10
