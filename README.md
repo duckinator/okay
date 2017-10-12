@@ -59,7 +59,17 @@ require 'okay/http'
 
 Okay::HTTP.get("https://smallest.dog") #=> #<Net::HTTPOK 200 OK readbody=true>
 Okay::HTTP.get("https://smallest.dog").body # => returns the page contents.
-# TODO: document Okay::HTTP.post().
+
+# Generates a query string based on +parameters+, ultimately requesting
+# https://httpbin.org/get?foo=bar
+Okay::HTTP.get("https://httpbin.org/get", parameters: { "foo" => "bar" })
+
+# Encodes +form_data+ as though it were a form, and sets the result of
+# that as the request body.
+Okay::HTTP.post("https://httpbin.org/post", form_data: { "foo" => "bar" })
+
+# Uses +data+ as the request body.
+Okay::HTTP.post("https://httpbin.org/post", data: "hello, world!")
 ```
 
 ## Development
