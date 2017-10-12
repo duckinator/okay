@@ -32,7 +32,9 @@ class Okay
       uri = URI.parse(url)
       uri.query = URI.encode_www_form(parameters)
 
-      options = { use_ssl: (uri.scheme == 'https') }
+      options = {
+        use_ssl: (uri.scheme == 'https')
+      }
 
       Net::HTTP.start(uri.host, uri.port, options) do |http|
         response = Net::HTTP.send(http_method, uri)
