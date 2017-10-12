@@ -8,8 +8,7 @@ Goals:
 
 * Concise, but easy-to-understand code.
 * Be reasonably robust, but don't chase every potential edgecase. Handle
-  them as they come, and try to find a way to the code easy to
-  understand.
+  them as they come.
 * Well-documented codebase.
   * Document known limitations, not just features.
   * Document tests, not just the implementation.
