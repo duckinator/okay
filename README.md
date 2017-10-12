@@ -23,17 +23,6 @@ or ask questions if you aren't sure it'll work for your usecase.
 If it doesn't, I may decide I want to add support for it, or be able to
 help you find something that works for you!
 
-## Utilities
-
-Currently implemented utilities:
-
-* HTTP fetcher.
-  * `GET` requests implemented.
-  * `POST` requests implemented.
-  * Other types of requests should be fairly easy to add, but haven't
-    been added.
-  * TLS is supported, using [`openssl/better_defaults`](https://github.com/duckinator/openssl-better_defaults/) to improve security on old Ruby versions.
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -53,6 +42,9 @@ Or install it yourself as:
 ## Usage
 
 ### HTTP
+
+* `GET` and `POST` requests supported.
+* TLS is supported, using [`openssl/better_defaults`](https://github.com/duckinator/openssl-better_defaults/) to improve security on old Ruby versions.
 
 ```ruby
 require 'okay/http'
