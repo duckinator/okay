@@ -52,7 +52,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### HTTP
+
+```ruby
+require 'okay/http'
+
+Okay::HTTP.get("https://smallest.dog") #=> #<Net::HTTPOK 200 OK readbody=true>
+Okay::HTTP.get("https://smallest.dog").body # => returns the page contents.
+# TODO: document Okay::HTTP.post().
+```
 
 ## Development
 
