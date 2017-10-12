@@ -73,8 +73,10 @@ class Okay
         when Net::HTTPRedirection
           # Follow a redirect.
           # Decrements +limit+ while doing so, to avoid redirect loops.
-          request.
-          send_request(METHODS[:get], response['location'], parameters, limit - 1)
+          #
+          # NOTE: This does not handle HTTP 307 correctly, as it always
+          #       changes to a GET request. https://httpstatuses.com/307
+          send_request(:Get, response['location'], parameters, body, limit - 1)
         else
           # This seemingly-innocent method raises an exception if the request
           # isn't successful.
