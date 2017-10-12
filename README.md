@@ -1,6 +1,6 @@
 # Okay
 
-Okay implementations of common tools, for when you prefer simplicity over complexity.
+Okay, minimalist implementations of common utilities in Ruby.
 
 ## Installation
 
