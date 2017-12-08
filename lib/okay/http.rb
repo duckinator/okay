@@ -1,7 +1,11 @@
+require 'okay/version'
 require 'openssl/better_defaults'
 require 'net/https'
+require 'cacert'
 
-class Okay
+Cacert.set_in_env
+
+module Okay
   module HTTP
     RedirectLimitError = Class.new(StandardError)
 
