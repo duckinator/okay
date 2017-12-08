@@ -11,8 +11,8 @@ class Okay
     #
     # @param url [String] The URL to request.
     # @param parameters [Hash] A hash representing a query string.
-    def self.get(url, parameters: {})
-      send_request(:Get, url, parameters, nil)
+    def self.get(url, parameters: {}, headers: {})
+      send_request(:Get, url, parameters, nil, headers)
     end
 
     # Make an HTTP POST request.
@@ -21,7 +21,7 @@ class Okay
     # @param data [String] Raw data to for the body of the request.
     # @param form_data [Hash] Data for the request body, encoded as though it
     #   were a form.
-    def self.post(url, data: nil, form_data: nil)
+    def self.post(url, data: nil, form_data: nil, headers: {})
       if !data.nil? && !form_data.nil?
         raise ArgumentError, "cannot specify data and form_data arguments simultaneously."
       end
@@ -32,7 +32,7 @@ class Okay
         body = URI.encode_www_form(form_data)
       end
 
-      send_request(:Post, url, nil, body)
+      send_request(:Post, url, nil, body, headers)
     end
 
     # Helper method for actually creating a request.
@@ -43,7 +43,7 @@ class Okay
     # @param parameters [Hash, nil] Request parameters (for the query string).
     # @param body [String, nil] Request body.
     # @param redirect_limit [Numeric] The maximum number of redirects allowed.
-    def self.send_request(http_method, url, parameters, body, redirect_limit = DEFAULT_REDIRECT_LIMIT)
+    def self.send_request(http_method, url, parameters, body, headers, redirect_limit = DEFAULT_REDIRECT_LIMIT)
       if redirect_limit <= 0
         raise RedirectLimitError, "request exceeded redirect limit"
       end
@@ -68,6 +68,11 @@ class Okay
 
         # Create the request object, but don't send it.
         request  = request_class.new(uri)
+
+        headers.each do |k, v|
+          request[k] = v
+        end
+
         # Set the request body, if there is one.
         request.body = body unless body.nil?
 
@@ -75,18 +80,13 @@ class Okay
         response = http.request(request)
 
         # Handle responses.
-        case response
-        when Net::HTTPSuccess
-          # Request succeeded; return the result.
-          response
-        when Net::HTTPRedirection
+        if response.is_a?(Net::HTTPRedirection)
           # Follow a redirect.
           # Decrements +redirect_limit+ while doing so, to avoid redirect loops.
           # NOTE: Does not handle HTTP 307. https://httpstatuses.com/307
-          send_request(:Get, response['location'], parameters, body, redirect_limit - 1)
+          send_request(:Get, response['location'], parameters, body, headers, redirect_limit - 1)
         else
-          # +response.value+ raises an exception if the request isn't successful.
-          response.value
+          response
         end
       end
     end
