@@ -1,7 +1,7 @@
-require 'okay/version'
-require 'openssl/better_defaults'
-require 'net/https'
-require 'cacert'
+require "okay/version"
+require "openssl/better_defaults"
+require "net/https"
+require "cacert"
 
 Cacert.set_in_env
 
@@ -60,7 +60,7 @@ module Okay
 
       options = {
         # If the URI starts with "https://", enable SSL/TLS.
-        use_ssl: (uri.scheme == 'https')
+        use_ssl: (uri.scheme == "https")
       }
 
       # Net::HTTP.start() keeps a connection to the host alive
@@ -88,7 +88,7 @@ module Okay
           # Follow a redirect.
           # Decrements +redirect_limit+ while doing so, to avoid redirect loops.
           # NOTE: Does not handle HTTP 307. https://httpstatuses.com/307
-          send_request(:Get, response['location'], parameters, body, headers, redirect_limit - 1)
+          send_request(:Get, response["location"], parameters, body, headers, redirect_limit - 1)
         else
           response
         end
