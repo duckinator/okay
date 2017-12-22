@@ -65,7 +65,21 @@ end
 
 class Object
   def self.const_missing(name)
-    Okay::GraphQL::Container.new(name.to_s)
+    # HACK: if const_missing is called inside Okay::GraphQL#initialize,
+    #       we wrap the constant name in a GraphQL::Container.
+    #       Otherwise, we re-raise the exception.
+    if caller[2] =~ /^#{Regexp.escape(__FILE__)}:\d+:in `initialize'$/
+      Okay::GraphQL::Container.new(name.to_s)
+    else
+      # Create an exception equivalent to what's normally raised.
+      exception = NameError.new("uninitialized constant #{name.to_s}")
+
+      # Preserve the backtrace.
+      exception.set_backtrace(caller)
+
+      # Raise the exception.
+      raise exception
+    end
   end
 end
 
