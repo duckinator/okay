@@ -12,36 +12,36 @@ module Okay
       def initialize(indent = 0, &query)
         @query = ""
         @indent = indent
+        @indent_str = " " * indent
         instance_exec(&query)
       end
 
       def method_missing(name, *args, **kwargs, &block)
-        query_part = name.to_s
+        query_part = @indent_str + name.to_s
         if args.length > 0 || kwargs.length > 0
           query_part += "("
 
           query_args = []
           query_args += args unless args.empty?
           query_args += kwargs.map { |k,v|
-            [k,v.inspect].join(":")
+            [k,v.inspect].join(": ")
           }
-          query_part += query_args.join(",")
+          query_part += query_args.join(", ")
 
           query_part += ")"
         end
 
-        puts "#{name}: #{block.inspect}"
         if block
-          query_part += "{\n"
+          query_part += " {\n"
           query_part += QueryDSL.new(@indent + 2, &block).to_s
-          query_part += "}\n"
+          query_part += @indent_str + "}"
         end
 
         @query += "#{query_part}\n"
       end
 
       def to_s
-        @query.gsub(/^/, " " * @indent)
+        @query
       end
     end
 
@@ -52,7 +52,7 @@ module Okay
 
       def to_s
         "query {\n" +
-          @query.to_s +
+          @query.to_s.gsub(/^/, "  ") +
         "}"
       end
     end
