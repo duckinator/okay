@@ -65,6 +65,26 @@ Okay::HTTP.post("https://httpbin.org/post", form_data: { "foo" => "bar" })
 Okay::HTTP.post("https://httpbin.org/post", data: "hello, world!")
 ```
 
+### GraphQL
+
+```ruby
+require "okay/graphql"
+require "json"
+
+query = GraphQL.query {
+    viewer {
+        login
+    }
+}
+
+response = request.submit!(:github, {bearer_token: ENV["DEMO_GITHUB_TOKEN"]})
+JSON.parse(response.body)
+# =>
+    {"data" =>
+      {"viewer" =>
+        {"login" => "duckinator"}}}
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
