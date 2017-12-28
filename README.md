@@ -80,9 +80,9 @@ query = GraphQL.query {
 response = request.submit!(:github, {bearer_token: ENV["DEMO_GITHUB_TOKEN"]})
 JSON.parse(response.body)
 # =>
-    {"data" =>
-      {"viewer" =>
-        {"login" => "duckinator"}}}
+#   {"data" =>
+#     {"viewer" =>
+#       {"login" => "duckinator"}}}
 ```
 
 ## Development
