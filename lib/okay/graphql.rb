@@ -1,6 +1,19 @@
 require "okay/version"
+require "okay/http"
+require "json"
 
 module Okay
+  # Example usage:
+  #
+  #     require "okay/graphql"
+  #     require "pp"
+  #     query = GraphQL.query {
+  #         viewer {
+  #             login
+  #         }
+  #     }
+  #     response = request.submit!(:github, {bearer_token: ENV["DEMO_GITHUB_TOKEN"]})
+  #     pp JSON.parse(response.body)
   class GraphQL
     Container = Struct.new(:value) do
       def inspect
@@ -55,6 +68,33 @@ module Okay
           @query.to_s.gsub(/^/, "  ") +
         "}"
       end
+
+      def submit!(url, headers = {})
+        if url == :github
+          url = "https://api.github.com/graphql"
+
+          bearer_token = headers[:bearer_token]
+
+          if bearer_token.nil?
+            raise ArgumentError, "missing keyword: bearer_token"
+          end
+
+          headers = default_github_headers(bearer_token).merge(headers)
+        end
+
+        data = {
+          "query" => to_s
+        }.to_json
+        Okay::HTTP.post(url, headers: headers, data: data)
+      end
+
+    private
+      def default_github_headers(token)
+        {
+          "Accept" => "application/vnd.github.v4.idl",
+          "Authorization" => "bearer #{token}",
+        }
+      end
     end
 
     def self.query(&query_)
@@ -82,23 +122,3 @@ class Object
     end
   end
 end
-
-puts Okay::GraphQL.query {
-  repository(owner:"octocat", name:"Hello-World") {
-    issues(last:20, states:CLOSED) {
-      edges {
-        node {
-          title
-          url
-          labels(first:5) {
-            edges {
-              node {
-                name
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
