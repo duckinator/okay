@@ -6,6 +6,6 @@ query = Okay::GraphQL.query {
   }
 }
 
-headers = { bearer_token: ENV['DEMO_GITHUB_TOKEN'] }
+headers = { bearer_token: "oh no, invalid bearer token!" }
 results = query.submit!(:github, headers).or_raise!
 puts results.from_json
