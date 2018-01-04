@@ -5,6 +5,41 @@ require "cacert"
 
 Cacert.set_in_env
 
+module Net
+  class HTTPResponse
+    # Returns false if the server encountered an error, true otherwise.
+    def okay?
+      self.value
+      true
+    rescue Net::HTTPExceptions
+      false
+    end
+
+    # Raises an exception if the request failed. (A fatal equivalent of +okay?+)
+    def or_raise!
+      self.value
+      self
+    end
+
+    # Converts the result from JSON if +okay?+ returns true; otherwise returns
+    # nil.
+    #
+    # Can be combined with +or_raise!+ to get a JSON result or raise an
+    # exception:
+    #
+    #     Okay::HTTP.get("https://example.org/blah.json").or_raise!.from_json
+    def from_json
+      require "json"
+
+      if okay?
+        JSON.parse(body)
+      else
+        nil
+      end
+    end
+  end
+end
+
 module Okay
   module HTTP
     RedirectLimitError = Class.new(StandardError)
