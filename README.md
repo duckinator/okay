@@ -65,11 +65,10 @@ Okay::HTTP.post("https://httpbin.org/post", form_data: { "foo" => "bar" })
 Okay::HTTP.post("https://httpbin.org/post", data: "hello, world!")
 ```
 
-### GraphQL
+### GraphQL DSL
 
 ```ruby
 require "okay/graphql"
-require "json"
 
 query = GraphQL.query {
     viewer {
@@ -78,11 +77,35 @@ query = GraphQL.query {
 }
 
 response = request.submit!(:github, {bearer_token: ENV["DEMO_GITHUB_TOKEN"]})
-JSON.parse(response.body)
+response.body.from_json
 # =>
 #   {"data" =>
 #     {"viewer" =>
 #       {"login" => "duckinator"}}}
+```
+
+### Raw GraphQL Queries
+
+There are cases where the DSL is more of a hindrance than help, e.g. if
+you need to use `@filter` or similar. For those cases, you can use raw
+queries:
+
+```ruby
+require "okay/graphql"
+
+query = GraphQL.query <<~QUERY
+    viewer {
+        login
+    }
+QUERY
+
+response = request.submit!(:github, {bearer_token: ENV["DEMO_GITHUB_TOKEN"]})
+response.body.from_json
+# =>
+#   {"data" =>
+#     {"viewer" =>
+#       {"login" => "duckinator"}}}
+
 ```
 
 ## Development
