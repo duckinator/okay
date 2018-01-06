@@ -59,8 +59,8 @@ module Okay
     end
 
     class Query
-      def initialize(&query)
-        @query = QueryDSL.new(&query)
+      def initialize(raw_query = nil, &query)
+        @query = raw_query || QueryDSL.new(&query)
       end
 
       def to_s
@@ -97,8 +97,8 @@ module Okay
       end
     end
 
-    def self.query(&query_)
-      Query.new(&query_)
+    def self.query(raw_query = nil, &query_)
+      Query.new(raw_query, &query_)
     end
   end
 end
