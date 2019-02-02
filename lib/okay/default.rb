@@ -2,7 +2,9 @@
 
 require "okay/version"
 
+# :nodoc:
 module Okay
+  # :nodoc:
   module DefaultValue
     def self.nil?
       true

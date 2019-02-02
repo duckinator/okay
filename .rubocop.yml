@@ -40,6 +40,9 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 25
 
+Metrics/ParameterLists:
+  Max: 6
+
 Style/Alias:
   EnforcedStyle: prefer_alias_method
 
@@ -87,6 +90,9 @@ Style/DateTime:
 Style/Encoding:
   Enabled: true
 
+Style/RedundantSelf:
+  Enabled: false
+
 # Force Unix line endings.
 Layout/EndOfLine:
   Enabled: true
@@ -130,6 +136,9 @@ Layout/IndentHash:
 Layout/IndentArray:
   Enabled: true
   EnforcedStyle: consistent
+
+Style/ConditionalAssignment:
+  Enabled: false
 
 # I deplore assignments in conditions and never want them in any codebase
 # I have direct control over.

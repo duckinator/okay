@@ -23,4 +23,3 @@ RSpec.describe Okay::Template do
     end
   end
 end
-

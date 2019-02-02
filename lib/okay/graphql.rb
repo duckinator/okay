@@ -5,6 +5,9 @@ require "okay/http"
 require "json"
 
 module Okay
+  ##
+  # A simple GraphQL client.
+  #
   # Example usage:
   #
   #     require "okay/graphql"
@@ -23,6 +26,8 @@ module Okay
       end
     end
 
+    ##
+    # Implements the GraphQL DSL.
     class QueryDSL
       def initialize(indent = 0, &query)
         @query = ""
@@ -33,13 +38,13 @@ module Okay
 
       def method_missing(name, *args, **kwargs, &block)
         query_part = @indent_str + name.to_s
-        if args.length > 0 || kwargs.length > 0
+        if !args.empty? || !kwargs.empty?
           query_part += "("
 
           query_args = []
           query_args += args unless args.empty?
-          query_args += kwargs.map { |k,v|
-            [k,v.inspect].join(": ")
+          query_args += kwargs.map { |k, v|
+            [k, v.inspect].join(": ")
           }
           query_part += query_args.join(", ")
 
@@ -60,6 +65,8 @@ module Okay
       end
     end
 
+    ##
+    # A class for submitting GraphQL queries.
     class Query
       def initialize(raw_query = nil, &query)
         @query = raw_query || QueryDSL.new(&query)
@@ -85,12 +92,13 @@ module Okay
         end
 
         data = {
-          "query" => to_s
+          "query" => to_s,
         }.to_json
         Okay::HTTP.post(url, headers: headers, data: data)
       end
 
-    private
+      private
+
       def default_github_headers(token)
         {
           "Accept" => "application/vnd.github.v4.idl",
@@ -105,6 +113,8 @@ module Okay
   end
 end
 
+# :nodoc:
+# rubocop:disable all
 class Object
   def self.const_missing(name)
     # HACK: if const_missing is called inside Okay::GraphQL#initialize,
@@ -124,3 +134,4 @@ class Object
     end
   end
 end
+# rubocop:enable all

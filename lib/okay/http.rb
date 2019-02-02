@@ -7,7 +7,9 @@ require "cacert"
 
 Cacert.set_in_env
 
+# :nodoc:
 module Net
+  # :nodoc:
   class HTTPResponse
     # Returns false if the server encountered an error, true otherwise.
     def okay?
@@ -31,18 +33,18 @@ module Net
     #
     #     Okay::HTTP.get("https://example.org/blah.json").or_raise!.from_json
     def from_json
+      return nil unless okay?
+
       require "json"
 
-      if okay?
-        JSON.parse(body)
-      else
-        nil
-      end
+      JSON.parse(body)
     end
   end
 end
 
 module Okay
+  ##
+  # A wrapper around Net::HTTP, focused on ease of use and flexibility.
   module HTTP
     RedirectLimitError = Class.new(StandardError)
 
@@ -97,7 +99,7 @@ module Okay
 
       options = {
         # If the URI starts with "https://", enable SSL/TLS.
-        use_ssl: (uri.scheme == "https")
+        use_ssl: (uri.scheme == "https"),
       }
 
       # Net::HTTP.start() keeps a connection to the host alive
