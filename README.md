@@ -108,6 +108,26 @@ response.body.from_json
 
 ```
 
+### Template Engine
+
+Okay also provides a basic templating engine.
+
+It is literally just a wrapper around `Kernel.format()` and `Pathname`.
+
+Assuming a `./templates/example.html` containing: `a %{foo} c %{bar} e`
+
+```ruby
+require "okay/template"
+
+template = Okay::Template.new("./templates/")
+template.apply("example.html", {foo: "b", bar: "d"}) #=> "a b c d e"
+```
+
+### SimpleOpts (OptionParser improvements)
+
+See the [example usage in
+HowIs](https://github.com/how-is/how_is/blob/ad81620/lib/how_is/cli.rb#L39-L74).
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
