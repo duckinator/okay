@@ -1,0 +1,213 @@
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  TargetRubyVersion: 2.4
+  Exclude:
+    - 'how_is.gemspec'
+    - 'bin/*'
+    - '**/*~'
+    - 'spec/capture_warnings.rb'
+
+# Exceptions should inherit from StandardError.
+# (RuboCop default is to inherit from RuntimeError.)
+Lint/InheritException:
+  EnforcedStyle: standard_error
+
+Metrics/AbcSize:
+  Max: 17
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+
+# Getting this back to the default of 100 would be nice,
+# but the few cases that exceed it don't seem overly concerning.
+Metrics/ClassLength:
+  Max: 120
+
+# Still try for 80, but we'll allow 110 because there's a not-insignificant
+# number of cases where we have long lines.
+#
+# It may be worth revisiting this in the future and refactoring those lines.
+Metrics/LineLength:
+  Max: 120
+  AllowHeredoc: true
+
+# Too short methods lead to extraction of single-use methods, which can make
+# the code easier to read (by naming things), but can also clutter the class
+Metrics/MethodLength:
+  Max: 25
+
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+
+# Most readable form.
+Layout/AlignHash:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
+  # Disable because it wound up conflicting with a lot of things like:
+  # foo('bar',
+  #   baz: 'asdf',
+  #   beep: 'boop')
+  #
+  # I suspect these'll disappear when overarching architectural issues are
+  # addressed.
+  Enabled: false
+
+Layout/AlignParameters:
+  # See Style/AlignedHash.
+  Enabled: false
+
+# This codebase may be English, but some English words contain diacritics.
+Style/AsciiComments:
+  Enabled: false
+
+# Despite the fact that some English words contain diacritics, we want all
+# method names to be writable by people who don't have an easy way to type
+# words with diacritics.
+Style/AsciiIdentifiers:
+  Enabled: true
+
+# { ... } for multi-line blocks is okay, follow Weirichs rule instead:
+# https://web.archive.org/web/20140221124509/http://onestepback.org/index.cgi/Tech/Ruby/BraceVsDoEnd.rdoc
+Style/BlockDelimiters:
+  Enabled: false
+
+# There's more nuance around this than RuboCop seems capable of.
+Style/BracesAroundHashParameters:
+  Enabled: false
+
+# Don't force use of Time or Date; DateTime is okay.
+Style/DateTime:
+  Enabled: false
+
+# Unicode is good, mkay?
+Style/Encoding:
+  Enabled: true
+
+# Force Unix line endings.
+Layout/EndOfLine:
+  Enabled: true
+  EnforcedStyle: lf
+
+# A lot of the approaches I use for making things readable makes this angry.
+# E.g., formatting multiple consecutive assignments so that the equal signs
+# and values line up.
+#
+# foobar = 'blah'
+# baz    = 'asdf'
+# beep   = 'boop'
+Layout/ExtraSpacing:
+  Enabled: false
+
+#   # bad
+#
+#   format('%<greeting>s', greeting: 'Hello')
+#   format('%s', 'Hello')
+#
+#   # good
+#
+#   format('%{greeting}', greeting: 'Hello')
+Style/FormatStringToken:
+  EnforcedStyle: template
+
+# Freeze string literals to future-proof the code.
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  EnforcedStyle: always
+
+# Mixing hash styles just looks silly.
+# http://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/HashSyntax
+Style/HashSyntax:
+  EnforcedStyle: no_mixed_keys
+
+Layout/IndentHash:
+  Enabled: true
+  EnforcedStyle: consistent
+
+Layout/IndentArray:
+  Enabled: true
+  EnforcedStyle: consistent
+
+# I deplore assignments in conditions and never want them in any codebase
+# I have direct control over.
+Style/ParenthesesAroundCondition:
+  AllowSafeAssignment: false
+Lint/AssignmentInCondition:
+  AllowSafeAssignment: false
+
+# Use [] for `%`-literal delimiters (e.g. for %q[]) that RuboCop doesn't define
+# anything for. (E.g., %q[].)
+#
+# The reason I prefer [] instead of () is that most of the time I use
+# `%`-literals is inside of function calls, and using () makes it blend in too
+# much.
+Style/PercentLiteralDelimiters:
+  Enabled: true
+  PreferredDelimiters:
+    default: "[]"
+    '%w': '[]'
+    '%W': '[]'
+
+# `has_key?` and `has_value?` are clearer than `key?` and `value?`.
+Style/PreferredHashMethods:
+  Enabled: true
+  EnforcedStyle: verbose
+
+# do / end blocks should be used for side effects,
+# methods that run a block for side effects and have
+# a useful return value are rare, assign the return
+# value to a local variable for those cases.
+Style/MethodCalledOnDoEndBlock:
+  Enabled: true
+
+# Indent method calls relative to the receiver, e.g.:
+#   foo \
+#     .bar \
+#     .baz \
+#     .asdf
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented_relative_to_receiver
+
+# Indenting the chained dots beneath each other is not supported by this cop,
+# see https://github.com/bbatsov/rubocop/issues/1633
+Layout/MultilineOperationIndentation:
+  Enabled: false
+
+# {'foo' => 'bar'} not { 'foo' => 'bar' }
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: true
+  EnforcedStyle: no_space
+
+# I find "foo > 0" more readable than "foo.positive?" personally.
+Style/NumericPredicate:
+  Enabled: false
+
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/RegexpLiteral
+Style/RegexpLiteral:
+  Enabled: false
+
+# Use double quotes everywhere by default.
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+# Prefer [:foo, :bar] over %i[foo bar].
+Style/SymbolArray:
+  Enabled: true
+  EnforcedStyle: brackets
+
+# Prefer ["foo", "bar"] over %w[foo bar].
+Style/WordArray:
+  Enabled: true
+  EnforcedStyle: brackets
+
+# Require parentheses around complex ternary conditions.
+Style/TernaryParentheses:
+  Enabled: true
+  EnforcedStyle: require_parentheses_when_complex
+
+# Require a comma after the last item in an array or hash if each item is on
+# its own line.
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
