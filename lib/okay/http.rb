@@ -108,7 +108,7 @@ module Okay
         request_class = Net::HTTP.const_get(http_method)
 
         # Create the request object, but don't send it.
-        request  = request_class.new(uri)
+        request = request_class.new(uri)
 
         headers.each do |k, v|
           request[k] = v
