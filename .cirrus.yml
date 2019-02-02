@@ -1,9 +1,8 @@
-test_task:
-  container:
-    matrix:
-      - ruby:2.4
-      - ruby:2.5
-      - ruby:2.6
+container:
+  matrix:
+    - ruby:2.4
+    - ruby:2.5
+    - ruby:2.6
 
 rspec_task:
   bundle_cache:
