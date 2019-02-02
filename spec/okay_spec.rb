@@ -1,11 +1,6 @@
 require "spec_helper"
 
 RSpec.describe Okay do
-  it "has a version number" do
-    expect(Okay::VERSION).not_to be nil
-  end
-
-  it "does something useful" do
-    expect(false).to eq(true)
-  end
+  # Nothing to test directly on Okay itself.
+  # Just leaving this file here in case that changes.
 end
