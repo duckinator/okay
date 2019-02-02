@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "okay/version"
 require "okay/http"
 require "json"

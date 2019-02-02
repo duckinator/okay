@@ -1,4 +1,6 @@
+# frozen_string_literal: true
 # coding: utf-8
+
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "okay/version"
@@ -27,4 +29,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 12.3"
   spec.add_development_dependency "rspec", "~> 3.8"
+  spec.add_development_dependency "rubocop", "~> 0.49.1"
 end

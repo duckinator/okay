@@ -19,4 +19,3 @@ module Okay
     end
   end
 end
-
