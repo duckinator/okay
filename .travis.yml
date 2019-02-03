@@ -12,6 +12,7 @@ matrix:
       - ruby-head
 
 before_install:
+  - gem install bundler
   - bundle install
 
 # See https://bors.tech/documentation/getting-started/
