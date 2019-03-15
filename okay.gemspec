@@ -23,6 +23,15 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  # Okay only supports Ruby versions under "normal maintenance".
+  # This number should be updated when a Ruby version goes into security
+  # maintenance.
+  #
+  # Ruby maintenance info: https://www.ruby-lang.org/en/downloads/branches/
+  #
+  # NOTE: Update Gemfile when this is updated!
+  spec.required_ruby_version = "~> 2.4"
+
   spec.add_runtime_dependency "openssl-better_defaults"
   spec.add_runtime_dependency "cacert"
 
