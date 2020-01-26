@@ -6,6 +6,7 @@ Lint_task:
   container:
     image: ruby:2.7-slim
   install_script:
+    - apt-get update && apt-get install -y git
     - gem install bundler
     - bundle install
   script:
@@ -19,6 +20,7 @@ Linux_task:
       - image: ruby:2.6-slim
       - image: ruby:2.7-slim
   install_script:
+    - apt-get update && apt-get install -y git
     - gem install bundler
     - bundle install
   script:
