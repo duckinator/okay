@@ -1,0 +1,28 @@
+# Allow compute credits usage by collaborators and bors.
+use_compute_credits: $CIRRUS_USER_COLLABORATOR == 'true' || $CIRRUS_BRANCH == 'master' || $CIRRUS_BRANCH == 'staging' || $CIRRUS_BRANCH == 'trying'
+
+
+Lint_task:
+  container:
+    image: ruby:2.7-slim
+  install_script:
+    - apt-get update && apt-get install -y git
+    - gem install bundler
+    - bundle install
+  script:
+    - ruby --version
+    - bundle exec rubocop
+
+Linux_task:
+  container:
+    matrix:
+      - image: ruby:2.5-slim
+      - image: ruby:2.6-slim
+      - image: ruby:2.7-slim
+  install_script:
+    - apt-get update && apt-get install -y git
+    - gem install bundler
+    - bundle install
+  script:
+    - ruby --version
+    - bundle exec rake spec

@@ -1,6 +1,8 @@
 status = [
-  "continuous-integration/travis-ci/push",
-  #"continuous-integration/appveyor/branch"
+  #"Lint",
+  "Linux container:ruby:2.5-slim",
+  "Linux container:ruby:2.6-slim",
+  "Linux container:ruby:2.7-slim",
 ]
 # Uncomment this to use a two hour timeout.
 # The default is one hour.
