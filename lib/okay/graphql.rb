@@ -36,6 +36,7 @@ module Okay
         instance_exec(&query)
       end
 
+      # rubocop:disable Style/MethodMissing
       def method_missing(name, *args, **kwargs, &block)
         query_part = @indent_str + name.to_s
         if !args.empty? || !kwargs.empty?
@@ -59,6 +60,7 @@ module Okay
 
         @query += "#{query_part}\n"
       end
+      # rubocop:enable Style/MethodMissing
 
       def to_s
         @query

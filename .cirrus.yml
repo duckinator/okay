@@ -3,7 +3,6 @@ use_compute_credits: $CIRRUS_USER_COLLABORATOR == 'true' || $CIRRUS_BRANCH == 'm
 
 
 Lint_task:
-  allow_failures: true
   container:
     image: ruby:2.7-slim
   install_script:
