@@ -95,7 +95,9 @@ module Okay
       uri = URI.parse(url)
 
       # Set the query string for the request.
-      uri.query = URI.encode_www_form(parameters) unless parameters.nil?
+      unless parameters.nil? || parameters.empty?
+        uri.query = URI.encode_www_form(parameters)
+      end
 
       options = {
         # If the URI starts with "https://", enable SSL/TLS.
