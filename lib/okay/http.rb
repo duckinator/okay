@@ -127,7 +127,17 @@ module Okay
           # Follow a redirect.
           # Decrements +redirect_limit+ while doing so, to avoid redirect loops.
           # NOTE: Does not handle HTTP 307. https://httpstatuses.com/307
-          send_request(:Get, response["location"], parameters, body, headers, redirect_limit - 1)
+          new_url = response["location"]
+#          if new_url.start_with?("/")
+#            new_uri = uri.dup
+#            new_uri.path = response["location"]
+#            new_url = new_uri.to_s
+#          elsif new_url.start_with?(".")
+#            new_uri = uri.dup
+#            new_uri.path += "/" + response["location"]
+#            new_url = new_uri.to_s
+#          end
+          send_request(:Get, new_url, parameters, body, headers, redirect_limit - 1)
         else
           response
         end
