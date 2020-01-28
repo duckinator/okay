@@ -91,22 +91,22 @@ RSpec.describe Okay::HTTP do
     # TODO: Test that POST is not changed to GET.
   end
 
-  # httpbin doesn't support HTTP 308, currently.
-=begin
-  # https://httpbin.org/redirect-to?url=/get&status_code=308
   it "follows 308 Permanent Redirect" do
-    #expect(delete("/status/308").code).to eq "200"
-    expect(get("/status/308").code).to eq "200"
-    #expect(head("/status/308").code).to eq "200"
-    #expect(options("/status/308").code).to eq "200"
-    #expect(patch("/status/308").code).to eq "200"
-    expect(post("/status/308").code).to eq "200"
-    #expect(put("/status/308").code).to eq "200"
-    #expect(trace("/status/308").code).to eq "200"
+    # httpbin doesn't provide /status/308, currently,
+    # but /redirect-to can be used to similar effect.
+    url = '/redirect-to?url=/redirect/1&status_code=308'
+
+    #expect(delete(url).code).to eq "200"
+    expect(get(url).code).to eq "200"
+    #expect(head(url).code).to eq "200"
+    #expect(options(url).code).to eq "200"
+    #expect(patch(url).code).to eq "200"
+    expect(post(url).code).to eq "200"
+    #expect(put(url).code).to eq "200"
+    #expect(trace(url).code).to eq "200"
 
     # TODO: Test that POST is not changed to GET.
   end
-=end
 
   # TODO: HTTP 400, 401, 402, 403 tests.
 
