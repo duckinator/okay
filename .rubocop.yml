@@ -31,7 +31,7 @@ Metrics/ClassLength:
 # number of cases where we have long lines.
 #
 # It may be worth revisiting this in the future and refactoring those lines.
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
   AllowHeredoc: true
 
@@ -47,7 +47,7 @@ Style/Alias:
   EnforcedStyle: prefer_alias_method
 
 # Most readable form.
-Layout/AlignHash:
+Layout/HashAlignment:
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: table
   # Disable because it wound up conflicting with a lot of things like:
@@ -59,7 +59,7 @@ Layout/AlignHash:
   # addressed.
   Enabled: false
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   # See Style/AlignedHash.
   Enabled: false
 
@@ -70,7 +70,7 @@ Style/AsciiComments:
 # Despite the fact that some English words contain diacritics, we want all
 # method names to be writable by people who don't have an easy way to type
 # words with diacritics.
-Style/AsciiIdentifiers:
+Naming/AsciiIdentifiers:
   Enabled: true
 
 # { ... } for multi-line blocks is okay, follow Weirichs rule instead:
@@ -129,11 +129,11 @@ Style/FrozenStringLiteralComment:
 Style/HashSyntax:
   EnforcedStyle: no_mixed_keys
 
-Layout/IndentHash:
+Layout/FirstHashElementIndentation:
   Enabled: true
   EnforcedStyle: consistent
 
-Layout/IndentArray:
+Layout/FirstArrayElementIndentation:
   Enabled: true
   EnforcedStyle: consistent
 
@@ -217,7 +217,10 @@ Style/TernaryParentheses:
   Enabled: true
   EnforcedStyle: require_parentheses_when_complex
 
-# Require a comma after the last item in an array or hash if each item is on
-# its own line.
-Style/TrailingCommaInLiteral:
+# Require a comma after the last item in an array if each item is on its own line.
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+# Require a comma after the last item in a hash if each item is on its own line.
+Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
