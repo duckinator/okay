@@ -16,15 +16,15 @@ def define_helper(name)
   }
 end
 
-%w[
-  delete
-  get
-  head
-  options
-  patch
-  post
-  put
-  trace
+[
+  "delete",
+  "get",
+  "head",
+  "options",
+  "patch",
+  "post",
+  "put",
+  "trace",
 ].each do |name|
   define_helper name
 end
