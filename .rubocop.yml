@@ -27,12 +27,8 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Max: 120
 
-# Still try for 80, but we'll allow 110 because there's a not-insignificant
-# number of cases where we have long lines.
-#
-# It may be worth revisiting this in the future and refactoring those lines.
 Layout/LineLength:
-  Max: 111
+  Max: 80
   AllowHeredoc: true
 
 # Too short methods lead to extraction of single-use methods, which can make

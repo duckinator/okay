@@ -17,7 +17,9 @@ module Okay
   #             login
   #         }
   #     }
-  #     response = request.submit!(:github, {bearer_token: ENV["DEMO_GITHUB_TOKEN"]})
+  #
+  #     token = ENV["DEMO_GITHUB_TOKEN"]
+  #     response = request.submit!(:github, {bearer_token: token})
   #     pp JSON.parse(response.body)
   class GraphQL
     Container = Struct.new(:value) do

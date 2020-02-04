@@ -66,7 +66,8 @@ module Okay
     #   were a form.
     def self.post(url, data: nil, form_data: nil, headers: {})
       if !data.nil? && !form_data.nil?
-        raise ArgumentError, "cannot specify data and form_data arguments simultaneously."
+        raise ArgumentError,
+              "cannot specify data and form_data arguments simultaneously."
       end
 
       if form_data.nil?
@@ -86,7 +87,8 @@ module Okay
     # @param parameters [Hash, nil] Request parameters (for the query string).
     # @param body [String, nil] Request body.
     # @param redirect_limit [Numeric] The maximum number of redirects allowed.
-    def self.send_request(http_method, url, parameters, body, headers, redirect_limit = DEFAULT_REDIRECT_LIMIT)
+    def self.send_request(http_method, url, parameters, body, headers,
+                          redirect_limit = DEFAULT_REDIRECT_LIMIT)
       if redirect_limit <= 0
         raise RedirectLimitError, "request exceeded redirect limit"
       end
@@ -139,7 +141,8 @@ module Okay
             new_uri.path += "/" + response["location"]
             new_url = new_uri.to_s
           end
-          send_request(:Get, new_url, parameters, body, headers, redirect_limit - 1)
+          send_request(:Get, new_url, parameters, body, headers,
+                       redirect_limit - 1)
         else
           response
         end
