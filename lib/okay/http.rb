@@ -79,6 +79,8 @@ module Okay
       send_request(:Post, url, nil, body, headers)
     end
 
+    # rubocop:disable Metrics/AbcSize
+
     # Helper method for actually creating a request.
     #
     # @param http_method [Symbol] A symbol representing the class name for
@@ -148,6 +150,8 @@ module Okay
         end
       end
     end
+
+    # rubocop:enable Metrics/AbcSize
 
     # Make +send_request+ a private method.
     private_class_method :send_request

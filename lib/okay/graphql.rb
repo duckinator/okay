@@ -38,8 +38,6 @@ module Okay
         instance_exec(&query)
       end
 
-      # rubocop:disable Style/MethodMissingSuper
-      # rubocop:disable Style/MissingRespondToMissing
       # rubocop:disable Metrics/AbcSize
       def method_missing(name, *args, **kwargs, &block)
         query_part = @indent_str + name.to_s
@@ -65,8 +63,6 @@ module Okay
         @query += "#{query_part}\n"
       end
       # rubocop:enable Metrics/AbcSize
-      # rubocop:enable Style/MissingRespondToMissing
-      # rubocop:enable Style/MethodMissingSuper
 
       def to_s
         @query
