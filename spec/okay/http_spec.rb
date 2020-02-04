@@ -7,7 +7,6 @@ require "okay/http"
 # spec/http_helper.rb defines get(), post(), etc.
 require "http_helper"
 
-
 # NOTE: Requires a local copy of httpbin running, which can be done via
 #       `docker run -p 80:80 kennethreitz/httpbin`
 RSpec.describe Okay::HTTP do
@@ -94,7 +93,7 @@ RSpec.describe Okay::HTTP do
   it "follows 308 Permanent Redirect" do
     # httpbin doesn't provide /status/308, currently,
     # but /redirect-to can be used to similar effect.
-    url = '/redirect-to?url=/redirect/1&status_code=308'
+    url = "/redirect-to?url=/redirect/1&status_code=308"
 
     # expect(delete(url).code).to eq "200"
     expect(get(url).code).to eq "200"
@@ -125,5 +124,4 @@ RSpec.describe Okay::HTTP do
   # TODO: HTTP 405-418, 421-429, 431, 444, 451, 499 tests.
 
   # TODO: HTTP 500-511, 599 tests.
-
 end

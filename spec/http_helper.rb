@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "okay/http"
 
 def define_helper(name)
