@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
@@ -27,18 +29,14 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Max: 120
 
-# Still try for 80, but we'll allow 110 because there's a not-insignificant
-# number of cases where we have long lines.
-#
-# It may be worth revisiting this in the future and refactoring those lines.
-Metrics/LineLength:
-  Max: 120
+Layout/LineLength:
+  Max: 80
   AllowHeredoc: true
 
 # Too short methods lead to extraction of single-use methods, which can make
 # the code easier to read (by naming things), but can also clutter the class
 Metrics/MethodLength:
-  Max: 25
+  Max: 35
 
 Metrics/ParameterLists:
   Max: 6
@@ -47,7 +45,7 @@ Style/Alias:
   EnforcedStyle: prefer_alias_method
 
 # Most readable form.
-Layout/AlignHash:
+Layout/HashAlignment:
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: table
   # Disable because it wound up conflicting with a lot of things like:
@@ -59,7 +57,7 @@ Layout/AlignHash:
   # addressed.
   Enabled: false
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   # See Style/AlignedHash.
   Enabled: false
 
@@ -70,7 +68,7 @@ Style/AsciiComments:
 # Despite the fact that some English words contain diacritics, we want all
 # method names to be writable by people who don't have an easy way to type
 # words with diacritics.
-Style/AsciiIdentifiers:
+Naming/AsciiIdentifiers:
   Enabled: true
 
 # { ... } for multi-line blocks is okay, follow Weirichs rule instead:
@@ -129,11 +127,11 @@ Style/FrozenStringLiteralComment:
 Style/HashSyntax:
   EnforcedStyle: no_mixed_keys
 
-Layout/IndentHash:
+Layout/FirstHashElementIndentation:
   Enabled: true
   EnforcedStyle: consistent
 
-Layout/IndentArray:
+Layout/FirstArrayElementIndentation:
   Enabled: true
   EnforcedStyle: consistent
 
@@ -217,7 +215,10 @@ Style/TernaryParentheses:
   Enabled: true
   EnforcedStyle: require_parentheses_when_complex
 
-# Require a comma after the last item in an array or hash if each item is on
-# its own line.
-Style/TrailingCommaInLiteral:
+# Require a comma after the last item in an array if each item is on its own line.
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+# Require a comma after the last item in a hash if each item is on its own line.
+Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma

@@ -6,7 +6,9 @@ Lint_task:
   container:
     image: ruby:2.7-slim
   install_script:
-    - apt-get update && apt-get install -y git
+    # gcc + make are installed because rubocop requires jaro_winkler,
+    # which -- on MRI -- uses a C extension.
+    - apt-get update && apt-get install -y git gcc make
     - gem install bundler
     - bundle install
   script:
@@ -20,7 +22,9 @@ Linux_task:
       - image: ruby:2.6-slim
       - image: ruby:2.7-slim
   install_script:
-    - apt-get update && apt-get install -y git
+    # gcc + make are installed because rubocop requires jaro_winkler,
+    # which -- on MRI -- uses a C extension.
+    - apt-get update && apt-get install -y git gcc make
     - gem install bundler
     - bundle install
   script:

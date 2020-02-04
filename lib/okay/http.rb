@@ -66,7 +66,8 @@ module Okay
     #   were a form.
     def self.post(url, data: nil, form_data: nil, headers: {})
       if !data.nil? && !form_data.nil?
-        raise ArgumentError, "cannot specify data and form_data arguments simultaneously."
+        raise ArgumentError,
+              "cannot specify data and form_data arguments simultaneously."
       end
 
       if form_data.nil?
@@ -78,6 +79,8 @@ module Okay
       send_request(:Post, url, nil, body, headers)
     end
 
+    # rubocop:disable Metrics/AbcSize
+
     # Helper method for actually creating a request.
     #
     # @param http_method [Symbol] A symbol representing the class name for
@@ -86,7 +89,8 @@ module Okay
     # @param parameters [Hash, nil] Request parameters (for the query string).
     # @param body [String, nil] Request body.
     # @param redirect_limit [Numeric] The maximum number of redirects allowed.
-    def self.send_request(http_method, url, parameters, body, headers, redirect_limit = DEFAULT_REDIRECT_LIMIT)
+    def self.send_request(http_method, url, parameters, body, headers,
+                          redirect_limit = DEFAULT_REDIRECT_LIMIT)
       if redirect_limit <= 0
         raise RedirectLimitError, "request exceeded redirect limit"
       end
@@ -95,7 +99,9 @@ module Okay
       uri = URI.parse(url)
 
       # Set the query string for the request.
-      uri.query = URI.encode_www_form(parameters) unless parameters.nil?
+      unless parameters.nil? || parameters.empty?
+        uri.query = URI.encode_www_form(parameters)
+      end
 
       options = {
         # If the URI starts with "https://", enable SSL/TLS.
@@ -127,12 +133,25 @@ module Okay
           # Follow a redirect.
           # Decrements +redirect_limit+ while doing so, to avoid redirect loops.
           # NOTE: Does not handle HTTP 307. https://httpstatuses.com/307
-          send_request(:Get, response["location"], parameters, body, headers, redirect_limit - 1)
+          new_url = response["location"]
+          if new_url.start_with?("/")
+            new_uri = uri.dup
+            new_uri.path = response["location"]
+            new_url = new_uri.to_s
+          elsif new_url.start_with?(".")
+            new_uri = uri.dup
+            new_uri.path += "/" + response["location"]
+            new_url = new_uri.to_s
+          end
+          send_request(:Get, new_url, parameters, body, headers,
+                       redirect_limit - 1)
         else
           response
         end
       end
     end
+
+    # rubocop:enable Metrics/AbcSize
 
     # Make +send_request+ a private method.
     private_class_method :send_request
