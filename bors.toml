@@ -1,9 +1,5 @@
-status = [
-  #"Lint",
-  "Linux container:ruby:2.5-slim",
-  "Linux container:ruby:2.6-slim",
-  "Linux container:ruby:2.7-slim",
-]
+status = ["CI Success"]
+
 # Uncomment this to use a two hour timeout.
 # The default is one hour.
 #timeout_sec = 7200

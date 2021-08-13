@@ -30,13 +30,11 @@ Gem::Specification.new do |spec|
   # Ruby maintenance info: https://www.ruby-lang.org/en/downloads/branches/
   #
   # NOTE: Update Gemfile when this is updated!
-  spec.required_ruby_version = "~> 2.4"
+  spec.required_ruby_version = ">= 2.6"
 
-  spec.add_runtime_dependency "openssl-better_defaults"
   spec.add_runtime_dependency "cacert"
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 12.3"
   spec.add_development_dependency "rspec", "~> 3.8"
-  spec.add_development_dependency "rubocop", "~> 0.79.0"
 end

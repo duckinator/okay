@@ -43,7 +43,7 @@ Or install it yourself as:
 ### HTTP
 
 * `GET` and `POST` requests supported.
-* TLS is supported, using [`openssl/better_defaults`](https://github.com/duckinator/openssl-better_defaults/) to improve security on old Ruby versions.
+* TLS is used automatically for HTTPS URLs.
 * Does not handle HTTP 307 redirects correctly. (Because it changes it to a GET
   request.)
 
