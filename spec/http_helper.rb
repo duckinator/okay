@@ -6,7 +6,7 @@ def define_helper(name)
   # TODO: Avoid using the production server on CI.
   host =
     if ENV["CI"]
-      "https://httpbin.org"
+      "https://httpbingo.org"
     else
       "http://localhost"
     end

@@ -91,9 +91,7 @@ RSpec.describe Okay::HTTP do
   end
 
   it "follows 308 Permanent Redirect" do
-    # httpbin doesn't provide /status/308, currently,
-    # but /redirect-to can be used to similar effect.
-    url = "/redirect-to?url=/redirect/1&status_code=308"
+    url = "/status/308"
 
     # expect(delete(url).code).to eq "200"
     expect(get(url).code).to eq "200"
@@ -109,6 +107,39 @@ RSpec.describe Okay::HTTP do
   end
 
   # TODO: HTTP 400, 401, 402, 403 tests.
+
+  it "handles 400 Bad Request" do
+    #expect(delete("/status/400").code).to eq "400"
+    expect(get("/status/400").code).to eq "400"
+    #expect(head("/status/400").code).to eq "400"
+    #expect(options("/status/400").code).to eq "400"
+    #expect(patch("/status/400").code).to eq "400"
+    expect(post("/status/400").code).to eq "400"
+    #expect(put("/status/400").code).to eq "400"
+    #expect(trace("/status/400").code).to eq "400"
+  end
+
+  it "handles 402 Payment Required" do
+    # expect(delete("/status/402").code).to eq "402"
+    expect(get("/status/402").code).to eq "402"
+    # expect(head("/status/402").code).to eq "402"
+    # expect(options("/status/402").code).to eq "402"
+    # expect(patch("/status/402").code).to eq "402"
+    expect(post("/status/402").code).to eq "402"
+    # expect(put("/status/402").code).to eq "402"
+    # expect(trace("/status/402").code).to eq "402"
+  end
+
+  it "handles 403 Forbidden" do
+    # expect(delete("/status/403").code).to eq "403"
+    expect(get("/status/403").code).to eq "403"
+    # expect(head("/status/403").code).to eq "403"
+    # expect(options("/status/403").code).to eq "403"
+    # expect(patch("/status/403").code).to eq "403"
+    expect(post("/status/403").code).to eq "403"
+    # expect(put("/status/403").code).to eq "403"
+    # expect(trace("/status/403").code).to eq "403"
+  end
 
   it "handles 404 Not Found" do
     # expect(delete("/status/404").code).to eq "404"
