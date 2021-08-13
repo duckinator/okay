@@ -4,7 +4,7 @@ use_compute_credits: $CIRRUS_USER_COLLABORATOR == 'true' || $CIRRUS_BRANCH == 'm
 
 Lint_task:
   container:
-    image: ruby:2.7-slim
+    image: ruby:3.0-slim
   install_script:
     # gcc + make are installed because rubocop requires jaro_winkler,
     # which -- on MRI -- uses a C extension.
@@ -18,9 +18,9 @@ Lint_task:
 Linux_task:
   container:
     matrix:
-      - image: ruby:2.5-slim
       - image: ruby:2.6-slim
       - image: ruby:2.7-slim
+      - image: ruby:3.0-slim
   install_script:
     # gcc + make are installed because rubocop requires jaro_winkler,
     # which -- on MRI -- uses a C extension.
