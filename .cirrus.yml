@@ -15,3 +15,9 @@ Linux_task:
   script:
     - ruby --version
     - bundle exec rake spec
+
+task:
+  name: CI Success
+  container: {image: "busybox"}
+  depends_on:
+    - Linux
