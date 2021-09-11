@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    okay (11.0.0)
+    okay (12.0.1)
       cacert
 
 GEM
