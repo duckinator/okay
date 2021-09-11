@@ -16,8 +16,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/duckinator/okay"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
+  spec.files         = `git ls-files -z`.split("\x0").select do |f|
+    f.match(%r{^(README.md|LICENSE.txt|okay.gemspec|lib)})
   end
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
