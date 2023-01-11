@@ -9,8 +9,6 @@ Linux_task:
       - image: ruby:3.1-slim
       - image: ruby:3.2-slim
   install_script:
-    # git is installed since the gemspec uses it.
-    - apt-get update && apt-get install -y git
     - gem install bundler
     - bundle install
   script:
