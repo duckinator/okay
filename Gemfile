@@ -9,7 +9,7 @@ source "https://rubygems.org"
 # Ruby maintenance info: https://www.ruby-lang.org/en/downloads/branches/
 #
 # NOTE: Update how_is.gemspec when this is updated!
-ruby ">= 2.6"
+ruby ">= 2.7"
 
 # Specify your gem's dependencies in okay.gemspec
 gemspec
