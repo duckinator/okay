@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   # Ruby maintenance info: https://www.ruby-lang.org/en/downloads/branches/
   #
   # NOTE: Update Gemfile when this is updated!
-  spec.required_ruby_version = ">= 2.7"
+  spec.required_ruby_version = ">= 3.0"
 
   spec.add_runtime_dependency "cacert"
 

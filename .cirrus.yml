@@ -4,7 +4,6 @@ use_compute_credits: $CIRRUS_USER_COLLABORATOR == 'true' || $CIRRUS_BRANCH == 'm
 Linux_task:
   container:
     matrix:
-      - image: ruby:2.7-slim
       - image: ruby:3.0-slim
       - image: ruby:3.1-slim
       - image: ruby:3.2-slim
