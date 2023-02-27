@@ -4,12 +4,10 @@ use_compute_credits: $CIRRUS_USER_COLLABORATOR == 'true' || $CIRRUS_BRANCH == 'm
 Linux_task:
   container:
     matrix:
-      - image: ruby:2.6-slim
-      - image: ruby:2.7-slim
       - image: ruby:3.0-slim
+      - image: ruby:3.1-slim
+      - image: ruby:3.2-slim
   install_script:
-    # git is installed since the gemspec uses it.
-    - apt-get update && apt-get install -y git
     - gem install bundler
     - bundle install
   script:
