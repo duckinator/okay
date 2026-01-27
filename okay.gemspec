@@ -21,6 +21,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.metadata["github_repo"] = "https://github.com/duckinator/okay"
+
   # Okay only supports Ruby versions under "normal maintenance".
   # This number should be updated when a Ruby version goes into security
   # maintenance.
